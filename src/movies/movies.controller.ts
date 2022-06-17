@@ -8,7 +8,6 @@ import {
   Param,
   Patch,
   Post,
-  Query,
 } from '@nestjs/common';
 
 @Controller('movies')
@@ -34,11 +33,8 @@ export class MoviesController {
     return this.moviesService.deleteOne(movieId);
   }
 
-  @Patch('/:id')
-  path(@Param('id') movieId: string, @Body() updateData) {
-    return {
-      updatedMovie: movieId,
-      ...updateData,
-    };
+  @Patch(':id')
+  patch(@Param('id') movieId: string, @Body() updateData) {
+    return this.moviesService.update(movieId, updateData);
   }
 }
